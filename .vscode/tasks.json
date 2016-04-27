@@ -1,0 +1,36 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "cmd",
+    "isShellCommand": true,
+    "args": ["/c"],
+    "showOutput": "silent",
+    "tasks": [
+        {
+            "taskName": "build",
+            // Tell the tsc compiler to use the tsconfig.json from the open folder.
+            "args": [
+                "tsc",
+                "-p",
+                "."
+            ],
+            // use the standard tsc problem matcher to find compile problems
+            // in the output.
+            "problemMatcher": "$tsc",
+            "isBuildCommand": true,
+            "isTestCommand": false,
+            "suppressTaskName": true
+        },
+        {
+            "taskName": "test",
+            "args": [
+                "npm", 
+                "test"
+            ],
+            "suppressTaskName": true,
+            "isBuildCommand": false,
+            "isTestCommand": true
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+node_modules/
+typings/
+PromiseTools.js
+PromiseTools.d.ts
+PromiseTools.js.map
+test/PromiseTools.test.js
+test/PromiseTools.test.d.ts
+test/PromiseTools.test.js.map
+test.ts
+test.js
+test.js.map
+test.d.ts
+todo.txt
+
+
+

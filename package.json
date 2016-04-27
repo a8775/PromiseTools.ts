@@ -1,0 +1,23 @@
+{
+  "name": "promisetools.ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "promisetools.ts",
+  "scripts": {
+    "pretest": "tsc -project .",
+    "test": "mocha"
+  },
+  "keywords": [
+    "promise",
+    "TypeScript",
+    "node",
+    "nodejs",
+    "node.js"
+  ],
+  "author": "a8775",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
+  }
+}
