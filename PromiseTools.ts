@@ -22,42 +22,22 @@ export class PromiseTools {
         return Promise.reject('not implemented!');
     }
 
-    /**
-     * Private method to proceed squence.
-     * 
-     * @private
-     * @static
-     * @param {{ (arg: any): Promise<any>; }[]} fnArray (description)
-     * @param {number} idx (description)
-     * @param {any[]} (description)
-     * @returns {Promise<any>} (description)
-     */
-    private static _sequence(fnArray: { (arg: any): Promise<any>; }[], idx: number, results: any[]): Promise<any> {
-        if (idx >= fnArray.length)
-            return Promise.resolve();
+    private static _sequence(fn: { (idx: number, results: any[]): Promise<any> }, num: number, idx: number, results: any[]): Promise<any> {
+        if (idx == num)
+            return Promise.resolve(results);
+        if (idx > num)
+            return Promise.reject(`PromiseTools._sequence() - index out of range: num=${num}, idx=${idx}`);
 
-        return fnArray[idx](idx > 0 ? results[idx - 1] : undefined)
+        return fn(idx, results)
             .then((res) => {
                 results.push(res);
-                return PromiseTools._sequence(fnArray, idx + 1, results);
+                return PromiseTools._sequence(fn, num, idx + 1, results);
             });
     }
 
-    /**
-     * Exceute all functions in sequesnce. Every function have to return 
-     * Promise<any> and result will be returned when all functions (promises)
-     * are resolved or first is rejected.
-     * 
-     * TODO: when rejected there is no return information how many 
-     * function was successfuly proceeded and its results.
-     * 
-     * @static
-     * @param {{ (prevResult: any): Promise<any>; }[]} fnArray (description)
-     * @returns {Promise<any[]>} (description)
-     */
-    public static sequence(fnArray: { (prevResult: any): Promise<any>; }[]): Promise<any[]> {
+    public static sequence(fn: { (nth: number): Promise<any> }, num: number): Promise<any[]> {
         var results: any[] = [];
-        return PromiseTools._sequence(fnArray, 0, results)
+        return PromiseTools._sequence(fn, num, 0, results)
             .then(() => {
                 return Promise.resolve(results);
             });
