@@ -35,7 +35,7 @@ export class PromiseTools {
             });
     }
 
-    public static sequence(fn: { (nth: number): Promise<any> }, num: number): Promise<any[]> {
+    public static sequence(fn: { (idx: number): Promise<any> }, num: number): Promise<any[]> {
         var results: any[] = [];
         return PromiseTools._sequence(fn, num, 0, results)
             .then(() => {
